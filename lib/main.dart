@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
-import 'constaints/constaints.dart';
+import 'constaints/constaints.dart'; // Here's my apiKey and my clientKey.
 
 void main() async {
   runApp(MyApp());
@@ -14,11 +14,22 @@ void main() async {
     debug: true,
   );
 
-  final category = ParseObject('Categorias')
-    ..set('Title', 'Camisetas')
-    ..set('Position', 2);
-  final response = await category.save();
-  print(response.success);
+  // final category = ParseObject('Categories')
+  //   ..set<String>('Title', 'Meias')
+  //   ..set<int>('Position', 1);
+  // final response = await category.save();
+  // print(response.success);
+
+  // final category = ParseObject('Categories')
+  //   ..objectId = 'ceR6RQFEcR'
+  //   ..set<int>('Position', 3);
+  // final response = await category.save();
+  // print(response.success);
+
+  final category = ParseObject('Categories')
+    ..objectId = 'ceR6RQFEcR';
+  category.delete();
+
 }
 
 class MyApp extends StatelessWidget {
