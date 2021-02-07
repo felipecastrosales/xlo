@@ -1,13 +1,15 @@
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-import '../signup/signup_screen.dart';
+import 'components/field_title.dart';
 
-class LoginScreen extends StatelessWidget {
+class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Entrar',),
+        title: const Text('Cadastro'),
         centerTitle: true,
       ),
       body: Container(
@@ -25,58 +27,64 @@ class LoginScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Acessar com e-mail', 
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[900],
+                  FieldTitle(
+                    title: 'Apelido',
+                    subtitle: 'Como aparecerá em seus anúncios.'
+                  ),
+                  TextField(
+                    decoration:  InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Exemplo: Felipe Sales', 
+                      isDense: true, 
                     ),
-                  ), 
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 8, 0, 4),
-                    child: Text(
-                      'E-mail', 
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[800],
-                        fontWeight: FontWeight.w700,
-                      ),
+                  ),
+                  const SizedBox(height: 16),
+                  FieldTitle(
+                    title: 'E-mail',
+                    subtitle: 'Enviaremos um e-mail de confirmação.'
+                  ),
+                  TextField(
+                    decoration:  InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Exemplo: soufeliposales@gmail.com', 
+                      isDense: true, 
                     ),
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                  ),
+                  const SizedBox(height: 16),
+                  FieldTitle(
+                    title: 'Celular',
+                    subtitle: 'Proteja a sua conta.'
+                  ),
+                  TextField(
+                    decoration:  InputDecoration(
+                      border: const OutlineInputBorder(),
+                      hintText: 'Exemplo: (85) 99999-9999', 
+                      isDense: true, 
+                    ),
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      TelefoneInputFormatter(),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  FieldTitle(
+                    title: 'Senha',
+                    subtitle: 'Use letras, números e caracteres especiais.'
                   ),
                   TextField(
                     decoration:  InputDecoration(
                       border: const OutlineInputBorder(),
                       isDense: true, 
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    obscureText: true,
                   ),
                   const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(3, 0, 0, 4),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Senha', 
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.grey[800],
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: (){},
-                          child: Text(
-                            'Esqueceu sua senha?', 
-                            style: TextStyle(
-                              decoration: TextDecoration.underline,
-                              color: Colors.purple,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  FieldTitle(
+                    title: 'Confirmar senha',
+                    subtitle: 'Repita a senha.'
                   ),
                   TextField(
                     decoration:  InputDecoration(
@@ -93,7 +101,7 @@ class LoginScreen extends StatelessWidget {
 
                       },
                       color: Colors.orange,
-                      child: Text('ENTRAR'),
+                      child: Text('CADASTRAR'),
                       textColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
@@ -103,22 +111,18 @@ class LoginScreen extends StatelessWidget {
                   ),
                   Divider(color: Colors.grey[700]),
                   Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Wrap(
                       alignment: WrapAlignment.center, 
                       children: [
                         const Text(
-                          'Não tem uma conta?  ',
+                          'Já tem uma conta?  ',
                           style: TextStyle(fontSize: 16),
                         ),
                         GestureDetector(
-                          onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (_) => SignUpScreen())
-                            );
-                          },
+                          onTap: Navigator.of(context).pop,
                           child: Text(
-                            'Cadastre-se',
+                            'Entrar',
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.purple,
