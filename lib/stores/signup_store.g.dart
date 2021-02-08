@@ -16,6 +16,13 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
       (_$nameValidComputed ??= Computed<bool>(() => super.nameValid,
               name: '_SignUpStoreBase.nameValid'))
           .value;
+  Computed<bool> _$emailValidComputed;
+
+  @override
+  bool get emailValid =>
+      (_$emailValidComputed ??= Computed<bool>(() => super.emailValid,
+              name: '_SignUpStoreBase.emailValid'))
+          .value;
 
   final _$nameAtom = Atom(name: '_SignUpStoreBase.name');
 
@@ -29,6 +36,21 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
   set name(String value) {
     _$nameAtom.reportWrite(value, super.name, () {
       super.name = value;
+    });
+  }
+
+  final _$emailAtom = Atom(name: '_SignUpStoreBase.email');
+
+  @override
+  String get email {
+    _$emailAtom.reportRead();
+    return super.email;
+  }
+
+  @override
+  set email(String value) {
+    _$emailAtom.reportWrite(value, super.email, () {
+      super.email = value;
     });
   }
 
@@ -47,10 +69,23 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
   }
 
   @override
+  void setEmail(String value) {
+    final _$actionInfo = _$_SignUpStoreBaseActionController.startAction(
+        name: '_SignUpStoreBase.setEmail');
+    try {
+      return super.setEmail(value);
+    } finally {
+      _$_SignUpStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
-nameValid: ${nameValid}
+email: ${email},
+nameValid: ${nameValid},
+emailValid: ${emailValid}
     ''';
   }
 }
