@@ -8,6 +8,7 @@ import 'components/field_title.dart';
 
 class SignUpScreen extends StatelessWidget {
   final SignUpStore signUpStore = SignUpStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,79 +38,102 @@ class SignUpScreen extends StatelessWidget {
                       subtitle: 'Como aparecerá em seus anúncios.'
                     ),
                     Observer(
-                      builder: (_){
-                      return TextField(
-                        decoration:  InputDecoration(
-                          border: const OutlineInputBorder(),
-                          hintText: 'Exemplo: Felipe Sales', 
-                          isDense: true, 
-                          errorText: signUpStore.nameError,
-                        ),
-                        onChanged: signUpStore.setName,
-                      );
-                    }),
+                      builder: (_) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'Exemplo: Felipe Sales',
+                            isDense: true,
+                            errorText: signUpStore.nameError,
+                          ),
+                          onChanged: signUpStore.setName,
+                        );
+                      }
+                    ),
                     const SizedBox(height: 16),
                     FieldTitle(
                       title: 'E-mail',
                       subtitle: 'Enviaremos um e-mail de confirmação.'
                     ),
-                    TextField(
-                      decoration:  InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: 'Exemplo: soufeliposales@gmail.com', 
-                        isDense: true, 
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      autocorrect: false,
+                    Observer(
+                      builder: (_) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: 'soufeliposales@gmail.com',
+                            isDense: true,
+                            errorText: signUpStore.emailError,
+                          ),
+                          keyboardType: TextInputType.emailAddress,
+                          autocorrect: false,
+                          onChanged: signUpStore.setEmail,
+                        );
+                      }
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
-                      title: 'Celular',
+                      title: 'Telefone',
                       subtitle: 'Proteja a sua conta.'
                     ),
-                    TextField(
-                      decoration:  InputDecoration(
-                        border: const OutlineInputBorder(),
-                        hintText: 'Exemplo: (85) 99999-9999', 
-                        isDense: true, 
-                      ),
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        TelefoneInputFormatter(),
-                      ],
+                    Observer(
+                      builder: (_) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            hintText: '(85) 99999-9999',
+                            isDense: true,
+                            errorText: signUpStore.phoneError,
+                          ),
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            TelefoneInputFormatter(),
+                          ],
+                          onChanged: signUpStore.setPhone,
+                        );
+                      }
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
                       title: 'Senha',
                       subtitle: 'Use letras, números e caracteres especiais.'
                     ),
-                    TextField(
-                      decoration:  InputDecoration(
-                        border: const OutlineInputBorder(),
-                        isDense: true, 
-                      ),
-                      obscureText: true,
+                    Observer(
+                      builder: (_) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                            errorText: signUpStore.passwordError,
+                          ),
+                          obscureText: true,
+                          onChanged: signUpStore.setPassword,
+                        );
+                      }
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
-                      title: 'Confirmar senha',
+                      title: 'Confirmar senha', 
                       subtitle: 'Repita a senha.'
                     ),
-                    TextField(
-                      decoration:  InputDecoration(
-                        border: const OutlineInputBorder(),
-                        isDense: true, 
-                      ),
-                      obscureText: true,
+                    Observer(
+                      builder: (_) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                            errorText: signUpStore.confirmPass,
+                          ),
+                          obscureText: true,
+                          onChanged: signUpStore.setConfirmPass,
+                        );
+                      }
                     ),
                     Container(
                       height: 40,
                       margin: EdgeInsets.only(top: 20, bottom: 12),
                       child: RaisedButton(
-                        onPressed: () {
-
-                        },
+                        onPressed: () {},
                         color: Colors.orange,
                         child: Text('CADASTRAR'),
                         textColor: Colors.white,
@@ -123,7 +147,7 @@ class SignUpScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Wrap(
-                        alignment: WrapAlignment.center, 
+                        alignment: WrapAlignment.center,
                         children: [
                           const Text(
                             'Já tem uma conta?  ',
