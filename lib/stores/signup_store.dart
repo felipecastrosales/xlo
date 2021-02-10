@@ -4,7 +4,6 @@ import '../helpers/extensions.dart';
 
 part 'signup_store.g.dart';
 
-
 class SignUpStore = _SignUpStoreBase with _$SignUpStore;
 
 abstract class _SignUpStoreBase with Store {
@@ -34,7 +33,7 @@ abstract class _SignUpStoreBase with Store {
   @action
   void setEmail(String value) => email = value;
 
-  @computed 
+  @computed
   bool get emailValid => email != null && email.isEmailValid();
   String get emailError {
     if (email == null || emailValid) {
@@ -44,7 +43,7 @@ abstract class _SignUpStoreBase with Store {
     } else {
       return 'E-mail inválido';
     }
-  } 
+  }
 
   @observable
   String phone;
@@ -53,7 +52,7 @@ abstract class _SignUpStoreBase with Store {
   @action
   void setPhone(String value) => phone = value;
 
-  @computed 
+  @computed
   bool get phoneValid => phone != null && phone.length >= 14;
   String get phoneError {
     if (phone == null || phoneValid) {
@@ -63,7 +62,7 @@ abstract class _SignUpStoreBase with Store {
     } else {
       return 'Número inválido';
     }
-  } 
+  }
 
   @observable
   String password;
@@ -72,17 +71,17 @@ abstract class _SignUpStoreBase with Store {
   @action
   void setPassword(String value) => password = value;
 
-  @computed 
+  @computed
   bool get passwordValid => password != null && password.length >= 6;
   String get passwordError {
-    if (password == null || phoneValid) {
+    if (password == null || passwordValid) {
       return null;
-    } else if (phone.isEmpty) {
+    } else if (password.isEmpty) {
       return 'Campo obrigatório';
     } else {
       return 'Senha inválida';
     }
-  } 
+  }
 
   @observable
   String confirmPass;
@@ -91,13 +90,17 @@ abstract class _SignUpStoreBase with Store {
   @action
   void setConfirmPass(String value) => confirmPass = value;
 
-  @computed 
+  @computed
   bool get confirmPassValid => confirmPass != null && confirmPass == password;
   String get confirmPassError {
     if (confirmPass == null || confirmPassValid) {
       return null;
     } else {
-      return 'Senha não coincidem';
+      return 'Senhas não coincidem';
     }
-  } 
+  }
+
+  @computed
+  bool get isFormValid =>
+    nameValid && emailValid && phoneValid && passwordValid && confirmPassValid;
 }

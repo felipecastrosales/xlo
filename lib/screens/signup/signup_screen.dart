@@ -122,26 +122,32 @@ class SignUpScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             isDense: true,
-                            errorText: signUpStore.confirmPass,
+                            errorText: signUpStore.confirmPassError,
                           ),
                           obscureText: true,
                           onChanged: signUpStore.setConfirmPass,
                         );
                       }
                     ),
-                    Container(
-                      height: 40,
-                      margin: EdgeInsets.only(top: 20, bottom: 12),
-                      child: RaisedButton(
-                        onPressed: () {},
-                        color: Colors.orange,
-                        child: Text('CADASTRAR'),
-                        textColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
+                    Observer(
+                      builder: (_) {
+                        return Container(
+                          height: 40,
+                          margin: EdgeInsets.only(top: 20, bottom: 12),
+                          child: RaisedButton(
+                            color: Colors.orange,
+                            child: Text('CADASTRAR'),
+                            textColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            onPressed: signUpStore.isFormValid 
+                              ? (){} 
+                              : null,
+                          ),
+                        );
+                      }
                     ),
                     Divider(color: Colors.grey[700]),
                     Padding(
