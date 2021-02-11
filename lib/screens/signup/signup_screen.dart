@@ -108,10 +108,10 @@ class SignUpScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             isDense: true,
-                            errorText: signUpStore.passwordError,
+                            errorText: signUpStore.pass1Error,
                           ),
                           obscureText: true,
-                          onChanged: signUpStore.setPassword,
+                          onChanged: signUpStore.setPass1,
                         );
                       }
                     ),
@@ -127,10 +127,10 @@ class SignUpScreen extends StatelessWidget {
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             isDense: true,
-                            errorText: signUpStore.confirmPassError,
+                            errorText: signUpStore.pass2Error,
                           ),
                           obscureText: true,
-                          onChanged: signUpStore.setConfirmPass,
+                          onChanged: signUpStore.setPass2,
                         );
                       }
                     ),
