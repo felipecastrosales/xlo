@@ -40,6 +40,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signUpStore.loading,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: 'Exemplo: Felipe Sales',
@@ -58,6 +59,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signUpStore.loading,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: 'soufeliposales@gmail.com',
@@ -78,6 +80,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signUpStore.loading,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: '(85) 99999-9999',
@@ -101,6 +104,7 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signUpStore.loading,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             isDense: true,
@@ -119,29 +123,37 @@ class SignUpScreen extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return TextField(
+                          enabled: !signUpStore.loading,
                           decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             isDense: true,
-                            errorText: signUpStore.confirmPass,
+                            errorText: signUpStore.confirmPassError,
                           ),
                           obscureText: true,
                           onChanged: signUpStore.setConfirmPass,
                         );
                       }
                     ),
-                    Container(
-                      height: 40,
-                      margin: EdgeInsets.only(top: 20, bottom: 12),
-                      child: RaisedButton(
-                        onPressed: () {},
-                        color: Colors.orange,
-                        child: Text('CADASTRAR'),
-                        textColor: Colors.white,
-                        elevation: 0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
+                    Observer(
+                      builder: (_) {
+                        return Container(
+                          height: 40,
+                          margin: EdgeInsets.only(top: 20, bottom: 12),
+                          child: RaisedButton(
+                            color: Colors.orange,
+                            disabledColor: Colors.orange.withAlpha(100),
+                            child: signUpStore.loading 
+                                ? CircularProgressIndicator()
+                                : Text('CADASTRAR'),
+                            textColor: Colors.white,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            onPressed: signUpStore.signUpPressed,
+                          ),
+                        );
+                      }
                     ),
                     Divider(color: Colors.grey[700]),
                     Padding(
