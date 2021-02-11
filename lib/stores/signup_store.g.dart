@@ -30,20 +30,20 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
       (_$phoneValidComputed ??= Computed<bool>(() => super.phoneValid,
               name: '_SignUpStoreBase.phoneValid'))
           .value;
-  Computed<bool> _$passwordValidComputed;
+  Computed<bool> _$pass1ValidComputed;
 
   @override
-  bool get passwordValid =>
-      (_$passwordValidComputed ??= Computed<bool>(() => super.passwordValid,
-              name: '_SignUpStoreBase.passwordValid'))
+  bool get pass1Valid =>
+      (_$pass1ValidComputed ??= Computed<bool>(() => super.pass1Valid,
+              name: '_SignUpStoreBase.pass1Valid'))
           .value;
-  Computed<bool> _$confirmPassValidComputed;
+  Computed<bool> _$pass2ValidComputed;
 
   @override
-  bool get confirmPassValid => (_$confirmPassValidComputed ??= Computed<bool>(
-          () => super.confirmPassValid,
-          name: '_SignUpStoreBase.confirmPassValid'))
-      .value;
+  bool get pass2Valid =>
+      (_$pass2ValidComputed ??= Computed<bool>(() => super.pass2Valid,
+              name: '_SignUpStoreBase.pass2Valid'))
+          .value;
   Computed<bool> _$isFormValidComputed;
 
   @override
@@ -104,33 +104,33 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
     });
   }
 
-  final _$passwordAtom = Atom(name: '_SignUpStoreBase.password');
+  final _$pass1Atom = Atom(name: '_SignUpStoreBase.pass1');
 
   @override
-  String get password {
-    _$passwordAtom.reportRead();
-    return super.password;
+  String get pass1 {
+    _$pass1Atom.reportRead();
+    return super.pass1;
   }
 
   @override
-  set password(String value) {
-    _$passwordAtom.reportWrite(value, super.password, () {
-      super.password = value;
+  set pass1(String value) {
+    _$pass1Atom.reportWrite(value, super.pass1, () {
+      super.pass1 = value;
     });
   }
 
-  final _$confirmPassAtom = Atom(name: '_SignUpStoreBase.confirmPass');
+  final _$pass2Atom = Atom(name: '_SignUpStoreBase.pass2');
 
   @override
-  String get confirmPass {
-    _$confirmPassAtom.reportRead();
-    return super.confirmPass;
+  String get pass2 {
+    _$pass2Atom.reportRead();
+    return super.pass2;
   }
 
   @override
-  set confirmPass(String value) {
-    _$confirmPassAtom.reportWrite(value, super.confirmPass, () {
-      super.confirmPass = value;
+  set pass2(String value) {
+    _$pass2Atom.reportWrite(value, super.pass2, () {
+      super.pass2 = value;
     });
   }
 
@@ -193,22 +193,22 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
   }
 
   @override
-  void setPassword(String value) {
+  void setPass1(String value) {
     final _$actionInfo = _$_SignUpStoreBaseActionController.startAction(
-        name: '_SignUpStoreBase.setPassword');
+        name: '_SignUpStoreBase.setPass1');
     try {
-      return super.setPassword(value);
+      return super.setPass1(value);
     } finally {
       _$_SignUpStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setConfirmPass(String value) {
+  void setPass2(String value) {
     final _$actionInfo = _$_SignUpStoreBaseActionController.startAction(
-        name: '_SignUpStoreBase.setConfirmPass');
+        name: '_SignUpStoreBase.setPass2');
     try {
-      return super.setConfirmPass(value);
+      return super.setPass2(value);
     } finally {
       _$_SignUpStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -231,14 +231,14 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
 name: ${name},
 email: ${email},
 phone: ${phone},
-password: ${password},
-confirmPass: ${confirmPass},
+pass1: ${pass1},
+pass2: ${pass2},
 loading: ${loading},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},
-passwordValid: ${passwordValid},
-confirmPassValid: ${confirmPassValid},
+pass1Valid: ${pass1Valid},
+pass2Valid: ${pass2Valid},
 isFormValid: ${isFormValid},
 signUpPressed: ${signUpPressed}
     ''';

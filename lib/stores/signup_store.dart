@@ -1,6 +1,8 @@
 import 'package:mobx/mobx.dart';
 
 import '../helpers/extensions.dart';
+import '../models/user.dart';
+import '../repositories/user_repository.dart';
 
 part 'signup_store.g.dart';
 
@@ -65,18 +67,18 @@ abstract class _SignUpStoreBase with Store {
   }
 
   @observable
-  String password;
+  String pass1;
 
   // ignore: use_setters_to_change_properties
   @action
-  void setPassword(String value) => password = value;
+  void setPass1(String value) => pass1 = value;
 
   @computed
-  bool get passwordValid => password != null && password.length >= 6;
-  String get passwordError {
-    if (password == null || passwordValid) {
+  bool get pass1Valid => pass1 != null && pass1.length >= 6;
+  String get pass1Error {
+    if (pass1 == null || pass1Valid) {
       return null;
-    } else if (password.isEmpty) {
+    } else if (pass1.isEmpty) {
       return 'Campo obrigatório';
     } else {
       return 'Senha inválida';
@@ -84,16 +86,16 @@ abstract class _SignUpStoreBase with Store {
   }
 
   @observable
-  String confirmPass;
+  String pass2;
 
   // ignore: use_setters_to_change_properties
   @action
-  void setConfirmPass(String value) => confirmPass = value;
+  void setPass2(String value) => pass2 = value;
 
   @computed
-  bool get confirmPassValid => confirmPass != null && confirmPass == password;
-  String get confirmPassError {
-    if (confirmPass == null || confirmPassValid) {
+  bool get pass2Valid => pass2 != null && pass2 == pass1;
+  String get pass2Error {
+    if (pass2 == null || pass2Valid) {
       return null;
     } else {
       return 'Senhas não coincidem';
@@ -102,7 +104,7 @@ abstract class _SignUpStoreBase with Store {
 
   @computed
   bool get isFormValid =>
-    nameValid && emailValid && phoneValid && passwordValid && confirmPassValid;
+      nameValid && emailValid && phoneValid && pass1Valid && pass2Valid;
 
   @computed
   Function get signUpPressed => (isFormValid && !loading) ? _signUp : null;
@@ -111,15 +113,20 @@ abstract class _SignUpStoreBase with Store {
   bool loading = false;
 
   // ignore: use_setters_to_change_properties
-  @action 
+  @action
   // ignore: type_annotate_public_apis
   void setLoading(value) => loading = value;
 
-  
   @action
   Future<void> _signUp() async {
     loading = true;
-    await Future.delayed(Duration(seconds: 3));
+    final user = User(
+      name: name,
+      email: email,
+      phone: phone,
+      password: pass1,
+    );
+    await UserRepository().signUp(user);
     loading = false;
   }
 }
