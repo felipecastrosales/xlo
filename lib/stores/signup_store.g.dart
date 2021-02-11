@@ -51,6 +51,13 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
       (_$isFormValidComputed ??= Computed<bool>(() => super.isFormValid,
               name: '_SignUpStoreBase.isFormValid'))
           .value;
+  Computed<Function> _$signUpPressedComputed;
+
+  @override
+  Function get signUpPressed =>
+      (_$signUpPressedComputed ??= Computed<Function>(() => super.signUpPressed,
+              name: '_SignUpStoreBase.signUpPressed'))
+          .value;
 
   final _$nameAtom = Atom(name: '_SignUpStoreBase.name');
 
@@ -127,6 +134,28 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
     });
   }
 
+  final _$loadingAtom = Atom(name: '_SignUpStoreBase.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
+  final _$_signUpAsyncAction = AsyncAction('_SignUpStoreBase._signUp');
+
+  @override
+  Future<void> _signUp() {
+    return _$_signUpAsyncAction.run(() => super._signUp());
+  }
+
   final _$_SignUpStoreBaseActionController =
       ActionController(name: '_SignUpStoreBase');
 
@@ -186,6 +215,17 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
   }
 
   @override
+  void setLoading(dynamic value) {
+    final _$actionInfo = _$_SignUpStoreBaseActionController.startAction(
+        name: '_SignUpStoreBase.setLoading');
+    try {
+      return super.setLoading(value);
+    } finally {
+      _$_SignUpStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 name: ${name},
@@ -193,12 +233,14 @@ email: ${email},
 phone: ${phone},
 password: ${password},
 confirmPass: ${confirmPass},
+loading: ${loading},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},
 passwordValid: ${passwordValid},
 confirmPassValid: ${confirmPassValid},
-isFormValid: ${isFormValid}
+isFormValid: ${isFormValid},
+signUpPressed: ${signUpPressed}
     ''';
   }
 }

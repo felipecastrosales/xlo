@@ -103,4 +103,23 @@ abstract class _SignUpStoreBase with Store {
   @computed
   bool get isFormValid =>
     nameValid && emailValid && phoneValid && passwordValid && confirmPassValid;
+
+  @computed
+  Function get signUpPressed => (isFormValid && !loading) ? _signUp : null;
+
+  @observable
+  bool loading = false;
+
+  // ignore: use_setters_to_change_properties
+  @action 
+  // ignore: type_annotate_public_apis
+  void setLoading(value) => loading = value;
+
+  
+  @action
+  Future<void> _signUp() async {
+    loading = true;
+    await Future.delayed(Duration(seconds: 3));
+    loading = false;
+  }
 }
