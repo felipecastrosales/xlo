@@ -1,9 +1,11 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:brasil_fields/brasil_fields.dart';
 
 import '../../stores/signup_store.dart';
+import 'components/error_box.dart';
 import 'components/field_title.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -33,6 +35,16 @@ class SignUpScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
+                    Observer(
+                      builder: (_) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8),
+                          child: ErrorBox(
+                            message: signUpStore.error,
+                          ),
+                        );
+                      },
+                    ),
                     FieldTitle(
                       title: 'Apelido',
                       subtitle: 'Como aparecerá em seus anúncios.'
@@ -49,13 +61,12 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           onChanged: signUpStore.setName,
                         );
-                      }
+                      },
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
                       title: 'E-mail',
-                      subtitle: 'Enviaremos um e-mail de confirmação.'
-                    ),
+                      subtitle: 'Enviaremos um e-mail de confirmação.'),
                     Observer(
                       builder: (_) {
                         return TextField(
@@ -70,12 +81,12 @@ class SignUpScreen extends StatelessWidget {
                           autocorrect: false,
                           onChanged: signUpStore.setEmail,
                         );
-                      }
+                      },
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
-                      title: 'Telefone',
-                      subtitle: 'Proteja a sua conta.'
+                      title: 'Telefone', 
+                      subtitle: 'Proteja a sua conta.',
                     ),
                     Observer(
                       builder: (_) {
@@ -94,12 +105,12 @@ class SignUpScreen extends StatelessWidget {
                           ],
                           onChanged: signUpStore.setPhone,
                         );
-                      }
+                      },
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
                       title: 'Senha',
-                      subtitle: 'Use letras, números e caracteres especiais.'
+                      subtitle: 'Use letras, números e caracteres especiais.',
                     ),
                     Observer(
                       builder: (_) {
@@ -113,12 +124,12 @@ class SignUpScreen extends StatelessWidget {
                           obscureText: true,
                           onChanged: signUpStore.setPass1,
                         );
-                      }
+                      },
                     ),
                     const SizedBox(height: 16),
                     FieldTitle(
                       title: 'Confirmar senha', 
-                      subtitle: 'Repita a senha.'
+                      subtitle: 'Repita a senha.',
                     ),
                     Observer(
                       builder: (_) {
@@ -132,7 +143,7 @@ class SignUpScreen extends StatelessWidget {
                           obscureText: true,
                           onChanged: signUpStore.setPass2,
                         );
-                      }
+                      },
                     ),
                     Observer(
                       builder: (_) {
@@ -142,7 +153,7 @@ class SignUpScreen extends StatelessWidget {
                           child: RaisedButton(
                             color: Colors.orange,
                             disabledColor: Colors.orange.withAlpha(100),
-                            child: signUpStore.loading 
+                            child: signUpStore.loading
                                 ? CircularProgressIndicator()
                                 : Text('CADASTRAR'),
                             textColor: Colors.white,
@@ -153,7 +164,7 @@ class SignUpScreen extends StatelessWidget {
                             onPressed: signUpStore.signUpPressed,
                           ),
                         );
-                      }
+                      },
                     ),
                     Divider(color: Colors.grey[700]),
                     Padding(
