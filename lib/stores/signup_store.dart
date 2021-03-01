@@ -112,10 +112,8 @@ abstract class _SignUpStoreBase with Store {
   @observable
   bool loading = false;
 
-  // ignore: use_setters_to_change_properties
-  @action
-  // ignore: type_annotate_public_apis
-  void setLoading(value) => loading = value;
+  @observable
+  String error;
 
   @action
   Future<void> _signUp() async {
@@ -126,7 +124,14 @@ abstract class _SignUpStoreBase with Store {
       phone: phone,
       password: pass1,
     );
-    await UserRepository().signUp(user);
+
+    try {
+      await UserRepository().signUp(user);
+    // ignore: avoid_catches_without_on_clauses
+    } catch (e) {
+      error = e;
+    }
+
     loading = false;
   }
 }

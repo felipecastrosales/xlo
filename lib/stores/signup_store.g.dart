@@ -149,6 +149,21 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_SignUpStoreBase.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
   final _$_signUpAsyncAction = AsyncAction('_SignUpStoreBase._signUp');
 
   @override
@@ -215,17 +230,6 @@ mixin _$SignUpStore on _SignUpStoreBase, Store {
   }
 
   @override
-  void setLoading(dynamic value) {
-    final _$actionInfo = _$_SignUpStoreBaseActionController.startAction(
-        name: '_SignUpStoreBase.setLoading');
-    try {
-      return super.setLoading(value);
-    } finally {
-      _$_SignUpStoreBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 name: ${name},
@@ -234,6 +238,7 @@ phone: ${phone},
 pass1: ${pass1},
 pass2: ${pass2},
 loading: ${loading},
+error: ${error},
 nameValid: ${nameValid},
 emailValid: ${emailValid},
 phoneValid: ${phoneValid},
