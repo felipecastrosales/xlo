@@ -10,9 +10,9 @@ class ErrorBox extends StatelessWidget {
       return Container();
     } else {
       return Container(
-        color: Colors.red,
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
+          color: Colors.red,
           borderRadius: BorderRadius.circular(20.0),  
         ),
         child: Row(
