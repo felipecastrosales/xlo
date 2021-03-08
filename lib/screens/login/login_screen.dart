@@ -88,6 +88,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     height: 40,
                     margin: EdgeInsets.only(top: 20, bottom: 12),
+                    // ignore: deprecated_member_use
                     child: RaisedButton(
                       onPressed: () {
 
