@@ -126,8 +126,9 @@ abstract class _SignUpStoreBase with Store {
     );
 
     try {
-      await UserRepository().signUp(user);
-    // ignore: avoid_catches_without_on_clauses
+      final resultUser = await UserRepository().signUp(user);
+      print(resultUser);
+      // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       error = e;
     }
