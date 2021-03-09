@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../stores/login_store.dart';
+import '../signup/components/error_box.dart';
 import '../signup/signup_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -37,6 +38,16 @@ class LoginScreen extends StatelessWidget {
                       fontSize: 16,
                       color: Colors.grey[900],
                     ),
+                  ),
+                  Observer(
+                    builder: (_){
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: ErrorBox(
+                          message: loginStore.error,
+                        ),
+                      );
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(3, 8, 0, 4),

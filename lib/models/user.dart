@@ -24,12 +24,12 @@ class User {
   String toString() {
     // ignore: lines_longer_than_80_chars
     return 'User{'
-      'id: $id '
-      'name: $name '
-      'email: $email '
-      'phone: $phone '
-      'password: $password '
-      'type: $type '
+      'id: $id, '
+      'name: $name, '
+      'email: $email, '
+      'phone: $phone, '
+      'password: $password, '
+      'type: $type, '
     '}';
   }
 }
