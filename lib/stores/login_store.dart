@@ -1,7 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
 import '../helpers/extensions.dart';
 import '../repositories/user_repository.dart';
+import 'user_manager_store.dart';
 
 part 'login_store.g.dart';
 
@@ -48,7 +50,7 @@ abstract class _LoginStore with Store {
 
     try {
       final user = await UserRepository().loginWithEmail(email, password);
-      print(user);
+      GetIt.I<UserManagerStore>().setUser(user);
       // ignore: avoid_catches_without_on_clauses
     } catch (e) {
       error = e;
