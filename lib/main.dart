@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import 'keys/constaints.dart'; // Here's my apiKey and my clientKey.
 import 'screens/base/base_sreen.dart';
 import 'stores/page_store.dart';
+import 'stores/user_manager_store.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,6 +17,7 @@ void main() async {
 
 void setUpLocators() {
   GetIt.I.registerSingleton(PageStore());
+  GetIt.I.registerSingleton(UserManagerStore());
 }
 
 Future<void> initializeParse() async {
