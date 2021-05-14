@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ImageSourceModel extends StatelessWidget {
   @override
@@ -15,11 +16,11 @@ class ImageSourceModel extends StatelessWidget {
           children: [
             TextButton(
               child: const Text('Câmera'),
-              onPressed: () {},
+              onPressed: getFromCamera,
             ),
             TextButton(
               child: const Text('Galeria'),
-              onPressed: () {},
+              onPressed: getFromGallery,
             ),
           ],
         ),
@@ -38,14 +39,30 @@ class ImageSourceModel extends StatelessWidget {
         actions: [
           CupertinoActionSheetAction(
             child: const Text('Câmera'),
-            onPressed: (){},
+            onPressed: getFromCamera,
           ),
           CupertinoActionSheetAction(
             child: const Text('Galeria'),
-            onPressed: (){},
+            onPressed: getFromGallery,
           ),
         ],
       );
     }
+  }
+
+  Future<void> getFromCamera() async {
+    final pickedFile = await ImagePicker()
+        .getImage(source: ImageSource.camera);
+    imageSelected(File(pickedFile.path));
+  }
+
+  Future<void> getFromGallery() async {
+    final pickedFile = await ImagePicker()
+        .getImage(source: ImageSource.gallery);    
+    imageSelected(File(pickedFile.path));
+  }
+
+  void imageSelected(File image) {
+    print(image.path);
   }
 }
