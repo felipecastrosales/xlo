@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../components/custom_drawer/custom_drawer.dart';
+import 'components/images_field.dart';
 
 class CreateScreen extends StatelessWidget {
   @override
@@ -19,43 +20,53 @@ class CreateScreen extends StatelessWidget {
         title: Text('Criar Anúncio'),
         centerTitle: true,
       ),
-      body: Card(
-        elevation: 32,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Título *',
-                labelStyle: kLabelStyle,
-                contentPadding: contentPadding,
+      body: Container(
+        alignment: Alignment.topCenter,
+        child: SingleChildScrollView(
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            elevation: 32,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Container(
+              width: MediaQuery.of(context).size.width * .85,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ImagesField(),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Título *',
+                      labelStyle: kLabelStyle,
+                      contentPadding: contentPadding,
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Descrição *',
+                      labelStyle: kLabelStyle,
+                      contentPadding: contentPadding,
+                    ),
+                    maxLines: null,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: 'Preço *',
+                      labelStyle: kLabelStyle,
+                      contentPadding: contentPadding,
+                      prefixText: 'R\$ ',
+                    ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      RealInputFormatter(centavos: true),
+                    ],
+                  ),
+                ],
               ),
             ),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Descrição *',
-                labelStyle: kLabelStyle,
-                contentPadding: contentPadding,
-              ),
-              maxLines: null,
-            ),
-            TextFormField(
-              decoration: InputDecoration(
-                labelText: 'Preço *',
-                labelStyle: kLabelStyle,
-                contentPadding: contentPadding,
-                prefixText: 'R\$ ',
-              ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                RealInputFormatter(centavos: true),
-              ],
-            ),
-          ],
+          ),
         ),
       ),
     );
