@@ -1,6 +1,7 @@
 # repository
 keys
 .metadata
+integration_test
 
 # Miscellaneous
 *.class
