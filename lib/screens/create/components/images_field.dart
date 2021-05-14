@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'image_source_modal.dart';
+
 class ImagesField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,15 +20,21 @@ class ImagesField extends StatelessWidget {
             child: GestureDetector(
               onTap: () {
                 if (Platform.isAndroid) {
-                  showModalBottomSheet(context: context, builder: null);
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (_) => ImageSourceModel(),
+                  );
                 } else {
-                  showCupertinoModalPopup(context: context, builder: null);
+                  showCupertinoModalPopup(
+                    context: context,
+                    builder: (_) => ImageSourceModel(),
+                  );
                 }
               },
               child: CircleAvatar(
                 radius: 44,
-                backgroundColor: Colors.grey[50],
-                child: Icon(Icons.camera_alt, size: 40, color: Colors.white),
+                backgroundColor: Colors.grey[300],
+                child: Icon(Icons.camera_alt, size: 40, color: Colors.grey),
               ),
             ),
           );
