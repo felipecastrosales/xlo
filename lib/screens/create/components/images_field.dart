@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../stores/create_store.dart';
+import 'image_dialog.dart';
 import 'image_source_modal.dart';
 
 class ImagesField extends StatelessWidget {
@@ -58,6 +59,15 @@ class ImagesField extends StatelessWidget {
                   padding:  EdgeInsets.fromLTRB(
                       8, 16, index == 4 ? 8 : 0, 16),
                   child: GestureDetector(
+                    onTap: (){
+                      showDialog(
+                        context: context, 
+                        builder: (_) => ImageDialog(
+                          image: createStore.images[index],
+                          onDelete: () => createStore.images.removeAt(index),
+                        ),
+                      );
+                    },
                     child: CircleAvatar(
                       radius: 44, 
                       backgroundImage: FileImage(createStore.images[index]),
