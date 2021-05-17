@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import 'keys/constaints.dart'; // Here's my apiKey and my clientKey.
+import 'repositories/ibge_repository.dart';
 import 'screens/base/base_sreen.dart';
 import 'stores/category_store.dart';
 import 'stores/page_store.dart';
@@ -14,6 +15,7 @@ void main() async {
   await initializeParse();
   setUpLocators();
   runApp(MyApp());
+  IBGERepository().getUFListFromApi().then(print);
 }
 
 void setUpLocators() {
