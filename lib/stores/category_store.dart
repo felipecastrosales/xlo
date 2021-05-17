@@ -8,14 +8,14 @@ part 'category_store.g.dart';
 class CategoryStore = _CategoryStoreBase with _$CategoryStore;
 
 abstract class _CategoryStoreBase with Store {
-  _CategoryStore() {
+  _CategoryStoreBase() {
     _loadCategories();
   }
 
   ObservableList<Category> categoryList = ObservableList<Category>();
 
   @computed
-  List<Category> get allCategoryList =>  List.from(categoryList)
+  List<Category> get allCategoryList => List.from(categoryList)
       ..insert(0, Category(id: '*', description: 'Todas'));
 
   @action
