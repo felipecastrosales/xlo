@@ -4,7 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import 'keys/constaints.dart'; // Here's my apiKey and my clientKey.
-import 'screens/category/category_screen.dart';
+import 'screens/base/base_sreen.dart';
 import 'stores/category_store.dart';
 import 'stores/page_store.dart';
 import 'stores/user_manager_store.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
         textSelectionTheme: TextSelectionThemeData(cursorColor: Colors.orange),
         appBarTheme: AppBarTheme(elevation: 0),
       ),
-      home: CategoryScreen(),
+      home: BaseScreen(),
     );
   }
 }
