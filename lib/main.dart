@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 
 import 'keys/constaints.dart'; // Here's my apiKey and my clientKey.
+import 'repositories/category_repository.dart';
 import 'screens/base/base_sreen.dart';
 import 'stores/page_store.dart';
 import 'stores/user_manager_store.dart';
@@ -28,6 +29,8 @@ Future<void> initializeParse() async {
     autoSendSessionId: true,
     debug: true,
   );
+  final categories = await CategoryRepository().getList();
+  print(categories);
 }
 
 class MyApp extends StatelessWidget {
