@@ -15,7 +15,7 @@ void main() async {
   await initializeParse();
   setUpLocators();
   runApp(MyApp());
-  IBGERepository().getUFListFromApi().then(print);
+  IBGERepository().getUFList().then((print));
 }
 
 void setUpLocators() {
