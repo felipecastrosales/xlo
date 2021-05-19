@@ -1,6 +1,8 @@
-import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'package:brasil_fields/brasil_fields.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../components/custom_drawer/custom_drawer.dart';
 import '../../stores/create_store.dart';
@@ -28,7 +30,7 @@ class CreateScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        alignment: Alignment.topCenter,
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           child: Card(
             clipBehavior: Clip.antiAlias,
@@ -43,20 +45,32 @@ class CreateScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ImagesField(createStore),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Título *',
-                      labelStyle: kLabelStyle,
-                      contentPadding: contentPadding,
-                    ),
+                  Observer(
+                    builder: (_) {
+                      return TextFormField(
+                        onChanged: createStore.setTitle,
+                        decoration: InputDecoration(
+                          labelText: 'Título *',
+                          labelStyle: kLabelStyle,
+                          contentPadding: contentPadding,
+                          errorText: createStore.titleError,
+                        ),
+                      );
+                    },
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Descrição *',
-                      labelStyle: kLabelStyle,
-                      contentPadding: contentPadding,
-                    ),
-                    maxLines: null,
+                  Observer(
+                    builder: (_) {
+                      return TextFormField(
+                        onChanged: createStore.setDescription,
+                        decoration: InputDecoration(
+                          labelText: 'Descrição *',
+                          labelStyle: kLabelStyle,
+                          contentPadding: contentPadding,
+                          errorText: createStore.descriptionError,
+                        ),
+                        maxLines: null,
+                      );
+                    },
                   ),
                   CategoryField(createStore),
                   CepField(),
