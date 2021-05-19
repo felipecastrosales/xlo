@@ -6,11 +6,12 @@ import '../../components/custom_drawer/custom_drawer.dart';
 import '../../stores/create_store.dart';
 import 'components/category_field.dart';
 import 'components/cep_field.dart';
+import 'components/hide_phone_field.dart';
 import 'components/images_field.dart';
 
 class CreateScreen extends StatelessWidget {
   final CreateStore createStore = CreateStore();
-  
+
   @override
   Widget build(BuildContext context) {
     final kLabelStyle = TextStyle(
@@ -19,6 +20,7 @@ class CreateScreen extends StatelessWidget {
       fontSize: 18,
     );
     final contentPadding = const EdgeInsets.fromLTRB(16, 10, 12, 16);
+
     return Scaffold(
       drawer: CustomDrawer(),
       appBar: AppBar(
@@ -37,6 +39,7 @@ class CreateScreen extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width * .85,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ImagesField(createStore),
@@ -69,6 +72,19 @@ class CreateScreen extends StatelessWidget {
                       FilteringTextInputFormatter.digitsOnly,
                       RealInputFormatter(centavos: true),
                     ],
+                  ),
+                  HidePhoneField(createStore),
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      child: Text('Enviar', style: TextStyle(fontSize: 18)),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.orange,
+                        onSurface: Colors.orange.withAlpha(120),
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      onPressed: () {},
+                    ),
                   ),
                 ],
               ),
