@@ -90,7 +90,7 @@ class ImagesField extends StatelessWidget {
             if (createStore.imagesError != null) {
               return Container(
                 alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+                padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
                 decoration: BoxDecoration(
                   border: Border(top: BorderSide(color: Colors.red)),
                 ),
