@@ -14,7 +14,7 @@ abstract class _CreateStoreBase with Store {
   @computed
   bool get imagesValid => images.isNotEmpty;
   String get imagesError {
-    if (imagesValid) {
+    if (!showErrors || imagesValid) {
       return null;
     } else {
       return 'Insira imagens';
@@ -30,7 +30,7 @@ abstract class _CreateStoreBase with Store {
   @computed
   bool get titleValid => title.length >= 6;
   String get titleError {
-    if (titleValid) {
+    if (!showErrors || titleValid) {
       return null;
     } else if (title.isEmpty) {
       return 'Campo obrigatório';
@@ -48,7 +48,7 @@ abstract class _CreateStoreBase with Store {
   @computed
   bool get descriptionValid => description.length >= 10;
   String get descriptionError {
-    if (descriptionValid) {
+    if (!showErrors || descriptionValid) {
       return null;
     } else if (description.isEmpty) {
       return 'Campo obrigatório';
@@ -66,7 +66,7 @@ abstract class _CreateStoreBase with Store {
   @computed
   bool get categoryValid => category != null;
   String get categoryError {
-    if (categoryValid) {
+    if (!showErrors || categoryValid) {
       return null;
     } else {
       return 'Campo obrigatório';
@@ -79,7 +79,7 @@ abstract class _CreateStoreBase with Store {
   Address get address => cepStore.address;
   bool get addressValid => address != null;
   String get addressError {
-    if (addressValid) {
+    if (!showErrors || addressValid) {
       return null;
     } else {
       return 'Campo obrigatório';
@@ -103,7 +103,7 @@ abstract class _CreateStoreBase with Store {
 
   bool get priceValid => price != null && price <= 999999;
   String get priceError {
-    if (priceValid) {
+    if (!showErrors || priceValid) {
       return null;
     } else if (priceText.isEmpty) {
       return 'Campo obrigatório';
@@ -117,4 +117,24 @@ abstract class _CreateStoreBase with Store {
 
   @action
   void setHidePhone(bool value) => hidePhone = value;
+
+  @computed
+  bool get formValid =>
+      imagesValid &&
+      titleValid &&
+      descriptionValid &&
+      categoryValid &&
+      addressValid &&
+      priceValid;
+
+  @computed
+  Function get sendPressed => formValid ? _send : null;
+
+  @observable
+  bool showErrors = false;
+
+  @action
+  void invalidSendPressed() => showErrors = true;
+
+  void _send() {}
 }

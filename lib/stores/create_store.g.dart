@@ -50,6 +50,20 @@ mixin _$CreateStore on _CreateStoreBase, Store {
   num get price => (_$priceComputed ??=
           Computed<num>(() => super.price, name: '_CreateStoreBase.price'))
       .value;
+  Computed<bool> _$formValidComputed;
+
+  @override
+  bool get formValid =>
+      (_$formValidComputed ??= Computed<bool>(() => super.formValid,
+              name: '_CreateStoreBase.formValid'))
+          .value;
+  Computed<Function> _$sendPressedComputed;
+
+  @override
+  Function get sendPressed =>
+      (_$sendPressedComputed ??= Computed<Function>(() => super.sendPressed,
+              name: '_CreateStoreBase.sendPressed'))
+          .value;
 
   final _$titleAtom = Atom(name: '_CreateStoreBase.title');
 
@@ -126,6 +140,21 @@ mixin _$CreateStore on _CreateStoreBase, Store {
     });
   }
 
+  final _$showErrorsAtom = Atom(name: '_CreateStoreBase.showErrors');
+
+  @override
+  bool get showErrors {
+    _$showErrorsAtom.reportRead();
+    return super.showErrors;
+  }
+
+  @override
+  set showErrors(bool value) {
+    _$showErrorsAtom.reportWrite(value, super.showErrors, () {
+      super.showErrors = value;
+    });
+  }
+
   final _$_CreateStoreBaseActionController =
       ActionController(name: '_CreateStoreBase');
 
@@ -185,6 +214,17 @@ mixin _$CreateStore on _CreateStoreBase, Store {
   }
 
   @override
+  void invalidSendPressed() {
+    final _$actionInfo = _$_CreateStoreBaseActionController.startAction(
+        name: '_CreateStoreBase.invalidSendPressed');
+    try {
+      return super.invalidSendPressed();
+    } finally {
+      _$_CreateStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 title: ${title},
@@ -192,12 +232,15 @@ description: ${description},
 category: ${category},
 priceText: ${priceText},
 hidePhone: ${hidePhone},
+showErrors: ${showErrors},
 imagesValid: ${imagesValid},
 titleValid: ${titleValid},
 descriptionValid: ${descriptionValid},
 categoryValid: ${categoryValid},
 address: ${address},
-price: ${price}
+price: ${price},
+formValid: ${formValid},
+sendPressed: ${sendPressed}
     ''';
   }
 }
