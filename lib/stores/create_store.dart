@@ -1,8 +1,12 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
+import '../models/ad.dart';
 import '../models/address.dart';
 import '../models/category.dart';
+import '../repositories/ad_repository.dart';
 import 'cep_store.dart';
+import 'user_manager_store.dart';
 
 part 'create_store.g.dart';
 
@@ -136,5 +140,16 @@ abstract class _CreateStoreBase with Store {
   @action
   void invalidSendPressed() => showErrors = true;
 
-  void _send() {}
+  void _send() {
+    final ad = Ad();
+    ad.user = GetIt.I<UserManagerStore>().user;
+    ad.images = images;
+    ad.title = title;
+    ad.description = description;
+    ad.category = category;
+    ad.address = address;
+    ad.price = price;
+    ad.hidePhone = hidePhone;
+    AdRepository().save(ad);
+  }
 }
