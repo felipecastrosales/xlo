@@ -5,10 +5,32 @@ import 'package:path/path.dart' as path;
 
 import '../models/ad.dart';
 import 'parse_errors.dart';
+import 'table_keys.dart';
 
 class AdRepository {
   Future<void> save(Ad ad) async {
     final parseImages = await saveImages(ad.images);
+    final parseUser = ParseUser('', '', '')..set(keyUserId, ad.user.id);
+    final adObject = ParseObject(keyAdTable);
+    final parseAcl = ParseACL(owner: parseUser);
+    parseAcl.setPublicReadAccess(allowed: true);
+    parseAcl.setPublicWriteAccess(allowed: false);
+    adObject.setACL(parseAcl);
+    adObject.set<ParseUser>(keyAdOwner, parseUser);
+    adObject.set<List<ParseFile>>(keyAdImages, parseImages);
+    adObject.set<String>(keyAdTitle, ad.title);
+    adObject.set<String>(keyAdDescription, ad.description);
+    adObject.set<ParseObject>(keyAdCategory,
+        ParseObject(keyCategoryTable)..set(keyCategoryId, ad.category.id));
+    adObject.set<String>(keyAdPostalCode, ad.address.cep);
+    adObject.set<String>(keyAdDistrict, ad.address.district);
+    adObject.set<String>(keyAdCity, ad.address.city.name);
+    adObject.set<String>(keyAdFederativeUnit, ad.address.uf.initials);
+    adObject.set<num>(keyAdPrice, ad.price);
+    adObject.set<bool>(keyAdHidePhone, ad.hidePhone);
+    adObject.set<int>(keyAdStatus, ad.status.index);
+    final response = await adObject.save();
+    print(response.success);
   }
 
   Future<List<ParseFile>> saveImages(List images) async {
