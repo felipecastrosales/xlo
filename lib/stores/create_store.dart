@@ -140,9 +140,17 @@ abstract class _CreateStoreBase with Store {
   @action
   void invalidSendPressed() => showErrors = true;
 
-  void _send() {
+  @observable
+  bool loading = false;
+
+  @observable
+  String error;
+
+  @action
+  Future<void> _send() async {
     final ad = Ad();
     ad.user = GetIt.I<UserManagerStore>().user;
+    error = 'Falha ao enviar';
     ad.images = images;
     ad.title = title;
     ad.description = description;
@@ -150,6 +158,12 @@ abstract class _CreateStoreBase with Store {
     ad.address = address;
     ad.price = price;
     ad.hidePhone = hidePhone;
-    AdRepository().save(ad);
+    loading = true;
+    try {
+      final response = await AdRepository().save(ad);
+    } catch (e) {
+      error = e;
+    }
+    loading = false;
   }
 }
