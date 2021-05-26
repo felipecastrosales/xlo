@@ -147,7 +147,7 @@ abstract class _CreateStoreBase with Store {
   String error;
 
   @observable
-  Ad savedAd;
+  bool savedAd = false;
 
   @action
   Future<void> _send() async {
@@ -163,7 +163,8 @@ abstract class _CreateStoreBase with Store {
     ad.hidePhone = hidePhone;
     loading = true;
     try {
-      final savedAd = await AdRepository().save(ad);
+      await AdRepository().save(ad);
+      savedAd = true;
     } catch (e) {
       error = e;
     }

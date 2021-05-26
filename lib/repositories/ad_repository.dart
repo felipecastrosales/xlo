@@ -8,7 +8,7 @@ import 'parse_errors.dart';
 import 'table_keys.dart';
 
 class AdRepository {
-  Future<Ad> save(Ad ad) async {
+  Future<void> save(Ad ad) async {
     try {
       final parseImages = await saveImages(ad.images);
       final parseUser = ParseUser('', '', '')..set(keyUserId, ad.category.id);
@@ -32,9 +32,7 @@ class AdRepository {
       adObject.set<int>(keyAdStatus, ad.status.index);
       
       final response = await adObject.save();
-      if (response.success) {
-        return Ad.fromParse(response.result);
-      } else {
+      if (!response.success) {
         return Future.error(ParseErrors.getDescription(response.error.code));
       }
     } catch (e) {
