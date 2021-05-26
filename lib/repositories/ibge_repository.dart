@@ -11,7 +11,7 @@ class IBGERepository {
     final preferences = await SharedPreferences.getInstance();
     if (preferences.containsKey('UF_LIST')) {
       final j = json.decode(preferences.get('UF_LIST'));
-      return j.map<UF>((j) => UF.fromJson(j)).toList()..sort((a, b) => 
+      return j.map<UF>((j) => UF.fromJson(j)).toList()..sort((UF a, UF b) => 
           a.name.toLowerCase().compareTo(b.name.toLowerCase()));
     }
 
