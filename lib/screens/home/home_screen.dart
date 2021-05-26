@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import '../../components/custom_drawer/custom_drawer.dart';
 import '../../stores/home_store.dart';
 import 'components/search_dialog.dart';
+import 'components/top_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeStore homeStore = GetIt.I<HomeStore>();
@@ -61,6 +62,11 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             ),
+          ],
+        ),
+        body: Column(
+          children: [
+            TopBar(),
           ],
         ),
       ),
