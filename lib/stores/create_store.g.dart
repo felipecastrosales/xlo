@@ -185,6 +185,21 @@ mixin _$CreateStore on _CreateStoreBase, Store {
     });
   }
 
+  final _$savedAdAtom = Atom(name: '_CreateStoreBase.savedAd');
+
+  @override
+  Ad get savedAd {
+    _$savedAdAtom.reportRead();
+    return super.savedAd;
+  }
+
+  @override
+  set savedAd(Ad value) {
+    _$savedAdAtom.reportWrite(value, super.savedAd, () {
+      super.savedAd = value;
+    });
+  }
+
   final _$_sendAsyncAction = AsyncAction('_CreateStoreBase._send');
 
   @override
@@ -272,6 +287,7 @@ hidePhone: ${hidePhone},
 showErrors: ${showErrors},
 loading: ${loading},
 error: ${error},
+savedAd: ${savedAd},
 imagesValid: ${imagesValid},
 titleValid: ${titleValid},
 descriptionValid: ${descriptionValid},
