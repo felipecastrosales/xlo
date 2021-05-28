@@ -38,7 +38,7 @@ abstract class _FilterStoreBase with Store {
         ? 'Faixa de Preço Inválido' : null;
 
   @observable
-  int vendorType = 0;
+  int vendorType = VENDOR_TYPE_PARTICULAR;
 
   @action 
   void selectVendorType(int value) => vendorType = value;
