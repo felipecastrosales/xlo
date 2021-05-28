@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
-import 'package:xlo/screens/category/category_screen.dart';
 
 import '../../../stores/home_store.dart';
+import '../../category/category_screen.dart';
+import '../../filter/filter_screen.dart';
 import 'bar_button.dart';
 
 class TopBar extends StatelessWidget {
@@ -41,7 +42,14 @@ class TopBar extends StatelessWidget {
               left: BorderSide(color: Colors.grey[400]),
             ),
           ),
-          onTap: () {},
+          onTap: () async {
+            final category = await Navigator.of(context).push(
+              MaterialPageRoute(builder: (_) => FilterScreen()),
+            );
+            if (category != null) {
+              return homeStore.setCategory(category);
+            }
+          },
         ),
       ],
     );
