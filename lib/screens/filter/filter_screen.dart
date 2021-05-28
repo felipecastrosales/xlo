@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../stores/filter_store.dart';
 import 'components/order_by_field.dart';
+import 'components/price_range_field.dart';
 
 class FilterScreen extends StatelessWidget {
   final FilterStore filter = FilterStore();
@@ -19,11 +20,12 @@ class FilterScreen extends StatelessWidget {
             ),
             elevation: 32,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   OrderByField(filter),
+                  PriceRangeField(filter),
                 ],
               ),
             ),
