@@ -4,10 +4,31 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:path/path.dart' as path;
 
 import '../models/ad.dart';
+import '../models/category.dart';
+import '../stores/filter_store.dart';
 import 'parse_errors.dart';
 import 'table_keys.dart';
 
 class AdRepository {
+  Future<List<Ad>> getHomeList({
+    FilterStore filter,
+    String search,
+    Category category,
+  }) {
+    final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
+    queryBuilder.setLimit(20);
+    queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
+    if (search != null && search.trim().isNotEmpty) {
+      queryBuilder.whereContains(keyAdTitle, search, caseSensitive: false);
+    }
+    if (category != null && category.id != '*') {
+      queryBuilder.whereEqualTo(
+        keyAdCategory, 
+        (ParseObject(keyCategoryTable)
+            ..set(keyCategoryId, category.id)).toPointer());
+    }
+  }
+
   Future<void> save(Ad ad) async {
     try {
       final parseImages = await saveImages(ad.images);
@@ -30,7 +51,7 @@ class AdRepository {
       adObject.set<num>(keyAdPrice, ad.price);
       adObject.set<bool>(keyAdHidePhone, ad.hidePhone);
       adObject.set<int>(keyAdStatus, ad.status.index);
-      
+
       final response = await adObject.save();
       if (!response.success) {
         return Future.error(ParseErrors.getDescription(response.error.code));
