@@ -28,12 +28,11 @@ class Ad {
     );
     views = object.get<int>(keyAdViews, defaultValue: 0);
     user = UserRepository().mapParseToUser(object.get<ParseUser>(keyAdOwner));
-    category: Category.fromParse(object.get<ParseObject>(keyAdCategory));
+    category = Category.fromParse(object.get<ParseObject>(keyAdCategory));
     status = AdStatus.values[object.get<int>(keyAdStatus)];
   }
 
   Ad();
-
   String id;
   List images;
   String title;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import '../../../stores/filter_store.dart';
 import 'section_title.dart';
@@ -35,7 +35,7 @@ class VendorTypeField extends StatelessWidget {
                   },
                   child: Container(
                     height: 50,
-                    width: 130,
+                    width: 110,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: filter.isTypeParticular 
@@ -70,7 +70,7 @@ class VendorTypeField extends StatelessWidget {
                   },
                   child: Container(
                     height: 50,
-                    width: 130,
+                    width: 110,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: filter.isTypeProfessional 

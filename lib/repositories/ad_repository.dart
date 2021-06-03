@@ -18,10 +18,10 @@ class AdRepository {
   }) async {
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
     queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
-    queryBuilder.setLimit(20);
+    queryBuilder.setLimit(10);
     queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
     if (search != null && search.trim().isNotEmpty) {
-      queryBuilder.whereContains(keyAdTitle, search, caseSensitive: false);
+      queryBuilder.whereContains(keyAdTitle , search, caseSensitive: false);
     }
     if (category != null && category.id != '*') {
       queryBuilder.whereEqualTo(
@@ -59,7 +59,7 @@ class AdRepository {
     }
     final response = await queryBuilder.query();
     if (response.success && response.results != null) {
-      return response.results.map((pObj) => Ad.fromParse(pObj)).toList();
+      return response.results.map((po) => Ad.fromParse(po)).toList();
     } else if (response.success && response.results == null) {
       return [];
     } else {
@@ -70,7 +70,7 @@ class AdRepository {
   Future<void> save(Ad ad) async {
     try {
       final parseImages = await saveImages(ad.images);
-      final parseUser = ParseUser('', '', '')..set(keyUserId, ad.category.id);
+      final parseUser = ParseUser('', '', '')..set(keyUserId, ad.user.id);
       final adObject = ParseObject(keyAdTable);
       final parseAcl = ParseACL(owner: parseUser);
       parseAcl.setPublicReadAccess(allowed: true);
