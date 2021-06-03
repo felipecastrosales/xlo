@@ -29,53 +29,56 @@ class FilterScreen extends StatelessWidget {
             elevation: 32,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  OrderByField(filter),
-                  PriceRangeField(filter),
-                  VendorTypeField(filter),
-                  Observer(
-                    builder: (_) {
-                      return Container(
-                        height: 50,
-                        margin: const EdgeInsets.symmetric(vertical: 16),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                            onPrimary: Colors.white,
-                            onSurface: Colors.orange.withAlpha(120),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    OrderByField(filter),
+                    PriceRangeField(filter),
+                    VendorTypeField(filter),
+                    Observer(
+                      builder: (_) {
+                        return Container(
+                          height: 50,
+                          margin: const EdgeInsets.symmetric(vertical: 16),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              onPrimary: Colors.white,
+                              onSurface: Colors.orange.withAlpha(120),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                            ).copyWith(
+                              backgroundColor: MaterialStateProperty
+                                .resolveWith<Color>(
+                                    (Set<MaterialState> states) {
+                                  if (states.contains(MaterialState.disabled)) {
+                                    return Colors.orange.withAlpha(120);
+                                  }
+                                  return Colors.orange;
+                                },
+                              ),
                             ),
-                          ).copyWith(
-                            backgroundColor: MaterialStateProperty
-                              .resolveWith<Color>((Set<MaterialState> states) {
-                                if (states.contains(MaterialState.disabled)) {
-                                  return Colors.orange.withAlpha(120);
-                                }
-                                return Colors.orange;
-                              },
+                            child: Text(
+                              'FILTRAR',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
+                            onPressed: filter.isFormValid 
+                                ? () {
+                                  filter.save();
+                                  Navigator.of(context).pop();
+                                } : null,
                           ),
-                          child: Text(
-                            'FILTRAR',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          onPressed: filter.isFormValid 
-                              ? () {
-                                filter.save();
-                                Navigator.of(context).pop();
-                              } : null,
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

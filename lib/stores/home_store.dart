@@ -1,5 +1,6 @@
 import 'package:mobx/mobx.dart';
 
+import '../models/ad.dart';
 import '../models/category.dart';
 import '../repositories/ad_repository.dart';
 import 'filter_store.dart';
@@ -11,14 +12,24 @@ class HomeStore = _HomeStoreBase with _$HomeStore;
 abstract class _HomeStoreBase with Store {
   _HomeStoreBase() {
     autorun((_) async {
-      final newAds = await AdRepository().getHomeAdList(
-        filter: filter,
-        search: search,
-        category: category,
-      );
-      print(newAds);
+      try {
+        setLoading(true);
+        final newAds = await AdRepository().getHomeAdList(
+          filter: filter,
+          search: search,
+          category: category,
+        );
+        adList.clear();
+        adList.addAll(newAds);
+        setError(null);
+        setLoading(false);
+      } catch (e) {
+        setError(e.toString());
+      }
     });
   }
+
+  ObservableList<Ad> adList = ObservableList<Ad>();
 
   @observable
   String search = '';
@@ -39,4 +50,17 @@ abstract class _HomeStoreBase with Store {
 
   @action
   void setFilter(FilterStore value) => filter = value;
+
+  @observable
+  String error;
+
+  @action
+  void setError(String value) => error = value;
+
+  @observable
+  bool loading = false;
+
+  @action
+  // ignore: avoid_positional_boolean_parameters
+  void setLoading(bool value) => loading = value;
 }
