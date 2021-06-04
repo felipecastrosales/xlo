@@ -15,19 +15,21 @@ class AdRepository {
     FilterStore filter,
     String search,
     Category category,
+    int page,
   }) async {
     final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
     queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
+    queryBuilder.setAmountToSkip(page * 10);
     queryBuilder.setLimit(10);
     queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
     if (search != null && search.trim().isNotEmpty) {
-      queryBuilder.whereContains(keyAdTitle , search, caseSensitive: false);
+      queryBuilder.whereContains(keyAdTitle, search, caseSensitive: false);
     }
     if (category != null && category.id != '*') {
       queryBuilder.whereEqualTo(
-        keyAdCategory, 
-        (ParseObject(keyCategoryTable)
-            ..set(keyCategoryId, category.id)).toPointer());
+          keyAdCategory,
+          (ParseObject(keyCategoryTable)..set(keyCategoryId, category.id))
+              .toPointer());
     }
     switch (filter.orderBy) {
       case OrderBy.PRICE:
@@ -46,8 +48,8 @@ class AdRepository {
     }
     if (filter.vendorType != null &&
         filter.vendorType > 0 &&
-        filter.vendorType < (VENDOR_TYPE_PROFESSIONAL | VENDOR_TYPE_PARTICULAR)
-    ) {
+        filter.vendorType <
+            (VENDOR_TYPE_PROFESSIONAL | VENDOR_TYPE_PARTICULAR)) {
       final userQuery = QueryBuilder<ParseUser>(ParseUser.forQuery());
       if (filter.vendorType == VENDOR_TYPE_PARTICULAR) {
         userQuery.whereEqualTo(keyUserType, UserType.PARTICULAR.index);
@@ -80,8 +82,8 @@ class AdRepository {
       adObject.set<List<ParseFile>>(keyAdImages, parseImages);
       adObject.set<String>(keyAdTitle, ad.title);
       adObject.set<String>(keyAdDescription, ad.description);
-      adObject.set<ParseObject>(keyAdCategory, ParseObject(keyCategoryTable)
-          ..set(keyCategoryId, ad.category.id));
+      adObject.set<ParseObject>(keyAdCategory,
+          ParseObject(keyCategoryTable)..set(keyCategoryId, ad.category.id));
       adObject.set<String>(keyAdPostalCode, ad.address.cep);
       adObject.set<String>(keyAdDistrict, ad.address.district);
       adObject.set<String>(keyAdCity, ad.address.city.name);

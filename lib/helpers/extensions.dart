@@ -10,7 +10,7 @@ extension StringExtension on String {
 
 extension NumberExtension on num {
   String formattedMoney() {
-    return NumberFormat('R\$###, ##0.00', 'pt-BR').format(this);
+    return NumberFormat('R\$###,##0.00', 'pt-BR').format(this);
   }
 }
 
