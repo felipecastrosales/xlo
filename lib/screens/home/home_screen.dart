@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     );
                   }
-                  if (homeStore.loading) {
+                  if (homeStore.showProgress) {
                     return Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation(Colors.white),
@@ -124,9 +124,15 @@ class HomeScreen extends StatelessWidget {
                     );
                   }
                   return ListView.builder(
-                    itemCount: homeStore.adList.length,
+                    itemCount: homeStore.itemCount,
                     itemBuilder: (_, index) {
-                      return AdTile(homeStore.adList[index]);
+                      if (index < homeStore.adList.length) {
+                        return AdTile(homeStore.adList[index]);
+                      }
+                      return Container(
+                        height: 10,
+                        child: LinearProgressIndicator(),
+                      );
                     }
                   );
                 },
