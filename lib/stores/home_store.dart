@@ -89,7 +89,7 @@ abstract class _HomeStoreBase with Store {
     if (newAds.length < 10) {
       lastPage = true;
       adList.addAll(newAds);
-    } else {}
+    }
   }
 
   @computed

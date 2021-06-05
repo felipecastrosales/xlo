@@ -33,7 +33,6 @@ with SingleTickerProviderStateMixin {
   }
 
   void scrollChanged() {
-    print('eaiiii');
     final scroll = widget.scrollController.position;
     if (scroll.userScrollDirection == ScrollDirection.forward) {
       controller.forward();
