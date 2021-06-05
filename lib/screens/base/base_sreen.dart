@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
 import '../../stores/page_store.dart';
+import '../account/account_screen.dart';
 import '../create/create_screen.dart';
 import '../home/home_screen.dart';
 
@@ -19,9 +20,7 @@ class _BaseScreenState extends State<BaseScreen> {
   @override
   void initState() {
     super.initState();
-    reaction(
-      (_) => pageStore.page, pageController.jumpToPage
-    );
+    reaction((_) => pageStore.page, pageController.jumpToPage);
   }
 
   @override
@@ -35,7 +34,7 @@ class _BaseScreenState extends State<BaseScreen> {
           CreateScreen(),
           Container(color: Colors.yellow),
           Container(color: Colors.purple),
-          Container(color: Colors.brown),
+          AccountScreen(),
         ],
       ),
     );
