@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../components/custom_drawer/custom_drawer.dart';
 import '../../stores/user_manager_store.dart';
-
+import '../myads/my_ads_screen.dart';
 
 class AccountScreen extends StatelessWidget {
   @override
@@ -30,12 +32,15 @@ class AccountScreen extends StatelessWidget {
                   children: [
                     Align(
                       alignment: Alignment.topRight,
-                      child: TextButton(
-                        child: const Text('EDITAR'),
-                        style: TextButton.styleFrom(primary: Colors.purple),
-                        onPressed: () {
-                          
-                        },
+                      child: Container(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: TextButton(
+                          child: const Text('EDITAR'),
+                          style: TextButton.styleFrom(primary: Colors.purple),
+                          onPressed: () {
+                            
+                          },
+                        ),
                       ),
                     ),
                     Align(
@@ -61,7 +66,7 @@ class AccountScreen extends StatelessWidget {
                               fontSize: 16,
                               color: Colors.grey[700],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -79,7 +84,9 @@ class AccountScreen extends StatelessWidget {
                 ),
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
-                  
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => MyAdsScreen()),
+                  );
                 },
               ),
               ListTile(
