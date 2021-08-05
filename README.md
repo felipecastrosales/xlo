@@ -1,3 +1,7 @@
+   > <h4 align="center">⚠️<br><br> This project has been discontinued. But maybe soon I'll do some updates and post the preconfigured project 🙃❤</h4>
+
+---
+
 <h1 align="center">XLO</h1>
 
 <h2 align="center">Topics 📋</h2>
